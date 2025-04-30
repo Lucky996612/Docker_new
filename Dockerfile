@@ -1,0 +1,12 @@
+# Use a Java 17 base image
+FROM openjdk:17-jdk-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy and build using Maven (multi-stage for cleaner images)
+COPY . /app
+RUN ./mvnw package -DskipTests
+
+# Run the jar file
+CMD ["java", "-jar", "target/javawebapp-0.0.1-SNAPSHOT.jar"]
